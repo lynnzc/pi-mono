@@ -1,9 +1,9 @@
 import { getOAuthProviders } from "@mariozechner/pi-ai/oauth";
 import { Container, type Focusable, getEditorKeybindings, Input, Spacer, Text, type TUI } from "@mariozechner/pi-tui";
-import { exec } from "child_process";
 import { theme } from "../theme/theme.js";
 import { DynamicBorder } from "./dynamic-border.js";
 import { keyHint } from "./keybinding-hints.js";
+import { openExternalUrl } from "./open-url.js";
 
 /**
  * Login dialog component - replaces editor during OAuth login flow
@@ -96,8 +96,7 @@ export class LoginDialogComponent extends Container implements Focusable {
 		}
 
 		// Try to open browser
-		const openCmd = process.platform === "darwin" ? "open" : process.platform === "win32" ? "start" : "xdg-open";
-		exec(`${openCmd} "${url}"`);
+		openExternalUrl(url);
 
 		this.tui.requestRender();
 	}
